@@ -116,6 +116,14 @@ witnessdiff/
   docs/                Methodology, threat model, demo, deploy, results
 ```
 
+## Security
+
+Shift-left gates (gitleaks, bandit, pip-audit, npm audit, semgrep, red-team invariants) run on every PR. See [docs/SECURITY.md](docs/SECURITY.md).
+
+```bash
+./scripts/security/run-all.sh
+```
+
 ## GitHub topics (suggested)
 
 `ai-agents` · `mcp` · `evaluation` · `regression-testing` · `evidence-integrity` · `fastapi` · `python`

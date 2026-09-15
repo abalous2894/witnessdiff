@@ -1,0 +1,79 @@
+# Security Sweep — shift-left gates (gitleaks, SAST, supply-chain, red-team invariants)
+name: Security Sweep
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  security-boundaries:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Secret scan (gitleaks, delta only)
+        env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          GITHUB_SHA: ${{ github.sha }}
+          GITHUB_EVENT_BEFORE: ${{ github.event.before }}
+          GITHUB_EVENT_PATH: ${{ github.event_path }}
+        run: |
+          set -euo pipefail
+          GITLEAKS_BIN="$(bash scripts/security/ci-gitleaks-install.sh)"
+          export GITLEAKS_BIN
+          bash scripts/security/ci-gitleaks-gate.sh
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install package + security tools
+        run: |
+          pip install -e ".[dev]"
+          pip install semgrep
+
+      - name: Ruff
+        run: ruff check src tests
+
+      - name: Bandit SAST
+        run: bandit -r src -ll -q
+
+      - name: pip-audit (production deps)
+        run: bash scripts/security/pip-audit-gate.sh
+
+      - name: Setup Node (viewer supply-chain)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: apps/viewer/package-lock.json
+
+      - name: Install viewer dependencies
+        working-directory: apps/viewer
+        run: npm ci
+
+      - name: npm audit (viewer production)
+        run: bash scripts/security/npm-audit-gate.sh
+
+      - name: semgrep (python + fastapi + OWASP)
+        run: |
+          semgrep scan \
+            --config p/python \
+            --config p/fastapi \
+            --config p/owasp-top-ten \
+            --error \
+            --metrics=off \
+            src/
+
+      - name: Pytest (unit + red team + API security)
+        run: pytest -q
+
+      - name: Regression suites vs baselines
+        run: witnessdiff run-all-suites

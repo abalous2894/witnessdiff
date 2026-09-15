@@ -1,0 +1,14 @@
+# Gitleaks config — WitnessDiff
+# https://github.com/gitleaks/gitleaks
+#
+# CI / pre-push scan push/PR deltas only (scripts/security/ci-gitleaks-gate.sh).
+
+title = "WitnessDiff gitleaks"
+
+[extend]
+useDefault = true
+
+[allowlist]
+paths = [
+  '''apps/viewer/package-lock\.json$''',
+]

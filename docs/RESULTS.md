@@ -41,10 +41,19 @@ Exit code `0` means all fixtures match expectations and baselines.
 
 ## CI
 
-GitHub Actions workflow `.github/workflows/regression.yml`:
+**Regression** — `.github/workflows/regression.yml`:
 
 - `ruff check src tests`
 - `pytest -q`
 - `witnessdiff run-evidence-suite`
 - `witnessdiff run-behavioral-suite`
 - `witnessdiff run-all-suites`
+
+**Security sweep** — `.github/workflows/security-sweep.yml` (PR + push to `main`):
+
+- gitleaks delta secret scan
+- bandit + semgrep SAST
+- pip-audit + npm audit supply-chain gates
+- pytest including red-team invariants (`tests/test_red_team.py`) and API boundaries (`tests/test_api_security.py`)
+
+Local full gate: `./scripts/security/run-all.sh`
