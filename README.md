@@ -30,8 +30,12 @@ witnessdiff run-all-suites
 # Start API (in-memory store without DATABASE_URL)
 witnessdiff serve
 
-# Postgres + API via Docker
+# Postgres + API + viewer via Docker
 docker compose up --build
+# Viewer → http://localhost:5173 · API → http://localhost:8080
+
+# Viewer dev (API must be running on :8080)
+cd apps/viewer && npm install && npm run dev
 
 # Run tests
 pytest
@@ -94,7 +98,7 @@ witnessdiff/
 - [x] Week 2: Behavioral graders, baseline regression, CI gate
 - [x] Week 3: Full witness comparator matrix (10 evidence + 5 behavioral fixtures)
 - [x] Week 4: FastAPI + Postgres + Docker Compose
-- [ ] Week 5: Minimal viewer + public demo deploy
+- [x] Week 5: Minimal viewer + public demo deploy
 - [ ] Week 6: 25 scenarios, demo video, hardened docs
 
 ## License

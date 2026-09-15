@@ -6,6 +6,7 @@ from pathlib import Path
 from uuid import UUID
 
 from fastapi import Depends, FastAPI, HTTPException, Query, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from starlette.responses import Response
 
@@ -21,6 +22,7 @@ from witnessdiff.api.service import (
     get_comparison_run,
     list_comparison_runs,
     run_and_persist_comparison,
+    run_demo_comparison,
     run_suite,
 )
 from witnessdiff.api.store import PostgresRunStore, RunStore, build_run_store
@@ -35,6 +37,14 @@ def _fixtures_root() -> Path:
 
 def _database_url() -> str | None:
     return os.environ.get("DATABASE_URL") or os.environ.get("WITNESSDIFF_DATABASE_URL")
+
+
+def _cors_origins() -> list[str]:
+    raw = os.environ.get(
+        "WITNESSDIFF_CORS_ORIGINS",
+        "http://127.0.0.1:5173,http://localhost:5173",
+    )
+    return [origin.strip() for origin in raw.split(",") if origin.strip()]
 
 
 def create_app(store: RunStore | None = None) -> FastAPI:
@@ -53,6 +63,13 @@ def create_app(store: RunStore | None = None) -> FastAPI:
         version=__version__,
         description="Persist and query witness-integrity comparison runs.",
         lifespan=lifespan,
+    )
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=_cors_origins(),
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
     )
 
     def get_store(request: Request) -> RunStore:
@@ -91,6 +108,10 @@ def create_app(store: RunStore | None = None) -> FastAPI:
         if detail is None:
             raise HTTPException(status_code=404, detail="comparison run not found")
         return detail
+
+    @app.post("/v1/demo/silent-omission", response_model=ComparisonRunDetail)
+    def demo_silent_omission(run_store: RunStore = Depends(get_store)) -> ComparisonRunDetail:
+        return run_demo_comparison(run_store, _fixtures_root(), "silent-omission")
 
     @app.post("/v1/suites/{suite_name}/run")
     def run_named_suite(suite_name: str) -> Response:

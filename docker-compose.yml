@@ -22,9 +22,19 @@ services:
     environment:
       DATABASE_URL: postgresql://witnessdiff:witnessdiff@db:5432/witnessdiff
       WITNESSDIFF_FIXTURES_ROOT: /app/fixtures
+      WITNESSDIFF_CORS_ORIGINS: http://localhost:5173,http://127.0.0.1:5173,http://localhost
     depends_on:
       db:
         condition: service_healthy
+
+  viewer:
+    build:
+      context: .
+      dockerfile: apps/viewer/Dockerfile
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
 
 volumes:
   witnessdiff_pgdata:

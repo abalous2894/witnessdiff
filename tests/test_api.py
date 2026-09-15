@@ -78,3 +78,12 @@ def test_run_behavioral_suite(client: TestClient):
     assert response.status_code == 200
     body = response.json()
     assert body["passed"] == 5
+
+
+def test_demo_silent_omission(client: TestClient):
+    response = client.post("/v1/demo/silent-omission")
+    assert response.status_code == 200
+    body = response.json()
+    assert body["verdict"] == "COMPLETENESS_OVERCLAIM"
+    assert body["reference_action_count"] == 4
+    assert body["evidence_action_count"] == 3

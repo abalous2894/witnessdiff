@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from typing import Any
 from uuid import UUID
@@ -46,6 +47,21 @@ def get_comparison_run(store: RunStore, run_id: UUID) -> ComparisonRunDetail | N
 
 def list_comparison_runs(store: RunStore, limit: int = 50) -> list[ComparisonRunSummary]:
     return [_to_summary(stored) for stored in store.list_comparisons(limit=limit)]
+
+
+def load_evidence_fixture_pair(
+    fixtures_root: Path,
+    name: str,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    evidence_dir = fixtures_root / "evidence"
+    reference = json.loads((evidence_dir / f"{name}.reference.json").read_text(encoding="utf-8"))
+    evidence = json.loads((evidence_dir / f"{name}.evidence.json").read_text(encoding="utf-8"))
+    return reference, evidence
+
+
+def run_demo_comparison(store: RunStore, fixtures_root: Path, name: str) -> ComparisonRunDetail:
+    reference, evidence = load_evidence_fixture_pair(fixtures_root, name)
+    return run_and_persist_comparison(store, reference, evidence)
 
 
 def run_suite(fixtures_root: Path, suite: str) -> SuiteRunResponse:

@@ -1,0 +1,193 @@
+:root {
+  color-scheme: light dark;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  line-height: 1.5;
+  background: #0f1419;
+  color: #e7ecf3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.app-shell {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+h1 {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.subtitle {
+  color: #9aa7b5;
+  margin: 0.25rem 0 0;
+  font-size: 0.95rem;
+}
+
+button {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.55rem 0.9rem;
+  cursor: pointer;
+  font: inherit;
+}
+
+button.secondary {
+  background: #243041;
+  color: #e7ecf3;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.panel {
+  background: #171e26;
+  border: 1px solid #2a3441;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.grid-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 900px) {
+  .grid-two {
+    grid-template-columns: 1fr;
+  }
+}
+
+.run-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.run-item {
+  border: 1px solid #2a3441;
+  border-radius: 10px;
+  padding: 0.85rem;
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+  background: #121820;
+}
+
+.run-item:hover,
+.run-item.active {
+  border-color: #3b82f6;
+}
+
+.badge {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.15rem 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.badge.ok {
+  background: #12341f;
+  color: #7dffb2;
+}
+
+.badge.fail {
+  background: #3a1717;
+  color: #ff8d8d;
+}
+
+.hop-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.hop {
+  border-left: 4px solid #2a3441;
+  padding: 0.65rem 0.75rem;
+  margin-bottom: 0.55rem;
+  background: #10161d;
+  border-radius: 0 8px 8px 0;
+}
+
+.hop.missing {
+  border-left-color: #ef4444;
+  background: #241316;
+}
+
+.hop.mismatch {
+  border-left-color: #f59e0b;
+  background: #241c10;
+}
+
+.hop.extra {
+  border-left-color: #a855f7;
+  background: #1b1424;
+}
+
+.hop.ok {
+  border-left-color: #22c55e;
+}
+
+.meta {
+  color: #9aa7b5;
+  font-size: 0.85rem;
+}
+
+.findings {
+  margin-top: 1rem;
+}
+
+.finding {
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px;
+  background: #101820;
+  border: 1px solid #2a3441;
+  margin-bottom: 0.5rem;
+  font-size: 0.92rem;
+}
+
+.error {
+  color: #ff8d8d;
+  margin-top: 0.75rem;
+}
+
+.stats {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 0.75rem 0 1rem;
+}
+
+.stat {
+  background: #101820;
+  border: 1px solid #2a3441;
+  border-radius: 8px;
+  padding: 0.55rem 0.75rem;
+  min-width: 120px;
+}
+
+.stat strong {
+  display: block;
+  font-size: 1.05rem;
+}
