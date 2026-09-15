@@ -8,7 +8,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$ROOT"
 
-GITLEAKS_BIN="${GITLEAKS_BIN:-gitleaks}"
+GITLEAKS_BIN="$(printf '%s' "${GITLEAKS_BIN:-gitleaks}" | tr -d '\r\n')"
 if [[ -x "${GITLEAKS_BIN}" ]]; then
   :
 elif command -v gitleaks >/dev/null 2>&1; then

@@ -8,7 +8,10 @@ See [threat-model.md](threat-model.md). v1 scope is synthetic fixture regression
 
 ## CI gates (every PR and push to `main`)
 
-Workflow: [`.github/workflows/security-sweep.yml`](../.github/workflows/security-sweep.yml)
+Workflows:
+
+- [`.github/workflows/security-sweep.yml`](../.github/workflows/security-sweep.yml) — shift-left gates below
+- [`.github/workflows/codeql.yml`](../.github/workflows/codeql.yml) — GitHub CodeQL static analysis (Python + TypeScript viewer)
 
 | Gate | Tool | Fails on |
 |------|------|----------|
@@ -18,6 +21,7 @@ Workflow: [`.github/workflows/security-sweep.yml`](../.github/workflows/security
 | Python supply-chain | pip-audit | Known vulns in production deps |
 | Viewer supply-chain | npm audit | High/critical in production tree |
 | Cross-ecosystem SAST | semgrep | OWASP / Python / FastAPI rules |
+| Deep static analysis | CodeQL | Python + JavaScript/TypeScript security queries |
 | Unit + red team | pytest | INV-01–07 oracle falsifiers, API boundaries |
 | Regression | witnessdiff CLI | Fixture or baseline drift |
 

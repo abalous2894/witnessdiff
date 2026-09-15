@@ -17,17 +17,22 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install gitleaks
+        id: gitleaks
+        run: |
+          set -euo pipefail
+          GITLEAKS_BIN="$(bash scripts/security/ci-gitleaks-install.sh | tail -1 | tr -d '\r')"
+          test -x "${GITLEAKS_BIN}"
+          echo "path=${GITLEAKS_BIN}" >> "${GITHUB_OUTPUT}"
+
       - name: Secret scan (gitleaks, delta only)
         env:
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           GITHUB_SHA: ${{ github.sha }}
           GITHUB_EVENT_BEFORE: ${{ github.event.before }}
           GITHUB_EVENT_PATH: ${{ github.event_path }}
-        run: |
-          set -euo pipefail
-          GITLEAKS_BIN="$(bash scripts/security/ci-gitleaks-install.sh)"
-          export GITLEAKS_BIN
-          bash scripts/security/ci-gitleaks-gate.sh
+          GITLEAKS_BIN: ${{ steps.gitleaks.outputs.path }}
+        run: bash scripts/security/ci-gitleaks-gate.sh
 
       - name: Setup Python
         uses: actions/setup-python@v5

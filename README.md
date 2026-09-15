@@ -1,6 +1,8 @@
 # WitnessDiff
 
 [![regression](https://github.com/abalous2894/witnessdiff/actions/workflows/regression.yml/badge.svg)](https://github.com/abalous2894/witnessdiff/actions/workflows/regression.yml)
+[![security sweep](https://github.com/abalous2894/witnessdiff/actions/workflows/security-sweep.yml/badge.svg)](https://github.com/abalous2894/witnessdiff/actions/workflows/security-sweep.yml)
+[![CodeQL](https://github.com/abalous2894/witnessdiff/actions/workflows/codeql.yml/badge.svg)](https://github.com/abalous2894/witnessdiff/actions/workflows/codeql.yml)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-green.svg)](LICENSE)
 
