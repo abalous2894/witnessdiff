@@ -38,6 +38,7 @@ def compare_witness_integrity(
         )
 
     findings: list[HopFinding] = []
+    findings.extend(_declared_count_findings(reference, evidence))
 
     ref_by_key: dict[tuple[str, str | None], list[int]] = {}
     for action in reference.actions:
@@ -119,6 +120,23 @@ def compare_witness_integrity(
                     ),
                 )
             )
+        if (
+            ref_action.arguments_digest
+            and ev_action.arguments_digest
+            and ref_action.arguments_digest != ev_action.arguments_digest
+        ):
+            findings.append(
+                HopFinding(
+                    kind="arguments_digest_mismatch",
+                    reference_index=ref_action.index,
+                    evidence_index=ev_action.index,
+                    tool_name=ref_action.tool_name,
+                    detail=(
+                        f"Position {index}: arguments_digest mismatch for tool "
+                        f"{ref_action.tool_name!r}"
+                    ),
+                )
+            )
 
     for key in shared:
         if ref_by_key[key] != ev_by_key[key]:
@@ -149,6 +167,39 @@ def compare_witness_integrity(
     )
 
 
+def _declared_count_findings(
+    reference: ReferenceTrace,
+    evidence: EvidenceBundle,
+) -> list[HopFinding]:
+    findings: list[HopFinding] = []
+    declared = evidence.declared_count
+    if declared is None:
+        return findings
+
+    if declared != len(evidence.actions):
+        findings.append(
+            HopFinding(
+                kind="declared_count_mismatch",
+                detail=(
+                    f"declared_count={declared} but bundle attests "
+                    f"{len(evidence.actions)} action(s)"
+                ),
+            )
+        )
+
+    if evidence.completeness_claim == "complete_path" and declared != len(reference.actions):
+        findings.append(
+            HopFinding(
+                kind="declared_count_mismatch",
+                detail=(
+                    f"complete_path claim with declared_count={declared} "
+                    f"but reference trace contains {len(reference.actions)} action(s)"
+                ),
+            )
+        )
+    return findings
+
+
 def _derive_verdict(
     findings: list[HopFinding],
     reference: ReferenceTrace,
@@ -157,7 +208,19 @@ def _derive_verdict(
     kinds = {finding.kind for finding in findings}
     has_missing_in_evidence = "missing_in_evidence" in kinds
     has_missing_in_reference = "missing_in_reference" in kinds
-    has_mismatch = bool(kinds & {"tool_name_mismatch", "action_id_mismatch", "order_mismatch"})
+    has_declared_count = "declared_count_mismatch" in kinds
+    has_mismatch = bool(
+        kinds
+        & {
+            "tool_name_mismatch",
+            "action_id_mismatch",
+            "arguments_digest_mismatch",
+            "order_mismatch",
+        }
+    )
+
+    if has_declared_count and evidence.completeness_claim == "complete_path":
+        return WitnessVerdict.COMPLETENESS_OVERCLAIM
 
     if has_missing_in_evidence and has_missing_in_reference:
         return WitnessVerdict.MISMATCH
@@ -193,9 +256,13 @@ def _build_note(
 
     omission_count = sum(1 for finding in findings if finding.kind == "missing_in_evidence")
     if verdict == WitnessVerdict.COMPLETENESS_OVERCLAIM:
+        declared_note = ""
+        if evidence.declared_count is not None:
+            declared_note = f" declared_count={evidence.declared_count}."
         return (
             f"Export claims completeness ({evidence.completeness_claim}) but reference contains "
-            f"{len(reference.actions)} action(s) and evidence contains {len(evidence.actions)}; "
+            f"{len(reference.actions)} action(s) and evidence contains "
+            f"{len(evidence.actions)}.{declared_note} "
             f"{omission_count} reference hop(s) are not attested."
         )
 

@@ -1,0 +1,24 @@
+{
+  "schema": "witnessdiff.evidence-bundle/v1",
+  "session_id": "demo-declared-006",
+  "source": "agent_platform_export",
+  "completeness_claim": "complete_path",
+  "declared_count": 5,
+  "actions": [
+    {
+      "index": 0,
+      "tool_name": "crm_lookup",
+      "action_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "index": 1,
+      "tool_name": "order_lookup",
+      "action_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    {
+      "index": 2,
+      "tool_name": "refund_request",
+      "action_id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "ok": false,
+  "verdict": "MISMATCH",
+  "session_id": "demo-substitution-004",
+  "reference_action_count": 3,
+  "evidence_action_count": 3,
+  "completeness_claim": "complete_path"
+}

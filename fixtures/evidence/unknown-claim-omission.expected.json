@@ -1,0 +1,8 @@
+{
+  "ok": false,
+  "verdict": "WITNESS_OMISSION",
+  "session_id": "demo-unknown-010",
+  "reference_action_count": 3,
+  "evidence_action_count": 2,
+  "completeness_claim": "unknown"
+}

@@ -2,9 +2,33 @@
   "schema": "witnessdiff.suite-baseline/v1",
   "suite": "evidence",
   "cases": {
+    "action-id-substitution": {
+      "ok": false,
+      "verdict": "MISMATCH"
+    },
+    "arguments-digest-mismatch": {
+      "ok": false,
+      "verdict": "MISMATCH"
+    },
     "complete-path": {
       "ok": true,
       "verdict": "COMPLETE"
+    },
+    "declared-count-overclaim": {
+      "ok": false,
+      "verdict": "COMPLETENESS_OVERCLAIM"
+    },
+    "extra-hop-in-export": {
+      "ok": false,
+      "verdict": "EXPORT_TRUNCATION"
+    },
+    "fabricated-export-hop": {
+      "ok": false,
+      "verdict": "EXPORT_TRUNCATION"
+    },
+    "partial-path-omission": {
+      "ok": false,
+      "verdict": "WITNESS_OMISSION"
     },
     "reordered-tool-call": {
       "ok": false,
@@ -13,6 +37,10 @@
     "silent-omission": {
       "ok": false,
       "verdict": "COMPLETENESS_OVERCLAIM"
+    },
+    "unknown-claim-omission": {
+      "ok": false,
+      "verdict": "WITNESS_OMISSION"
     }
   }
 }

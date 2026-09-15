@@ -1,0 +1,19 @@
+{
+  "schema": "witnessdiff.reference-trace/v1",
+  "session_id": "demo-digest-008",
+  "source": "instrumented_mcp_runner",
+  "actions": [
+    {
+      "index": 0,
+      "tool_name": "crm_lookup",
+      "action_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "arguments_digest": "1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    {
+      "index": 1,
+      "tool_name": "order_lookup",
+      "action_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "arguments_digest": "2222222222222222222222222222222222222222222222222222222222222222"
+    }
+  ]
+}

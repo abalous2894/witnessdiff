@@ -68,6 +68,17 @@ OpenAI’s eval guidance recommends small, representative datasets (often 10–5
 | `PROHIBITED_TOOL` | Blocked tool invoked |
 | `INVALID_TOOL_ARGS` | Missing or empty required arguments |
 
+## Witness comparator matrix (week 3)
+
+| Finding kind | Detects |
+|--------------|---------|
+| `missing_in_evidence` | Reference hop not attested in export |
+| `missing_in_reference` | Export hop absent from reference trace |
+| `action_id_mismatch` | Same position, different ledger anchor |
+| `arguments_digest_mismatch` | Same anchor, different argument binding |
+| `declared_count_mismatch` | Export count claim diverges from attested or reference hops |
+| `tool_name_mismatch` / `order_mismatch` | Identity or ordering drift |
+
 ## Baseline regression
 
 Committed baselines live in `reports/baseline/`. CI and `witnessdiff run-*-suite` compare current verdicts to those files so prompt, grader, or comparator changes cannot silently shift expected outcomes.

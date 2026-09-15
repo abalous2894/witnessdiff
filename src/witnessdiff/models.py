@@ -82,8 +82,8 @@ class EvidenceBundle(BaseModel):
 
     @model_validator(mode="after")
     def validate_declared_count(self) -> EvidenceBundle:
-        if self.declared_count is not None and self.declared_count != len(self.actions):
-            raise ValueError("declared_count must match actions length when provided")
+        if self.declared_count is not None and self.declared_count < len(self.actions):
+            raise ValueError("declared_count cannot be less than the number of attested actions")
         return self
 
 
@@ -93,7 +93,9 @@ class HopFinding(BaseModel):
         "missing_in_reference",
         "tool_name_mismatch",
         "action_id_mismatch",
+        "arguments_digest_mismatch",
         "order_mismatch",
+        "declared_count_mismatch",
     ]
     reference_index: int | None = None
     evidence_index: int | None = None

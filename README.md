@@ -86,7 +86,7 @@ witnessdiff/
 
 - [x] Week 1: CLI, schemas, evidence comparators, first fixtures
 - [x] Week 2: Behavioral graders, baseline regression, CI gate
-- [ ] Week 3: Full witness comparator matrix
+- [x] Week 3: Full witness comparator matrix (10 evidence + 5 behavioral fixtures)
 - [ ] Week 4: FastAPI + Postgres + Docker Compose
 - [ ] Week 5: Minimal viewer + public demo deploy
 - [ ] Week 6: 25 scenarios, demo video, hardened docs

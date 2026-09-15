@@ -1,0 +1,8 @@
+{
+  "ok": false,
+  "verdict": "COMPLETENESS_OVERCLAIM",
+  "session_id": "demo-declared-006",
+  "reference_action_count": 3,
+  "evidence_action_count": 3,
+  "completeness_claim": "complete_path"
+}

@@ -1,0 +1,8 @@
+{
+  "ok": false,
+  "verdict": "EXPORT_TRUNCATION",
+  "session_id": "demo-extra-hop-005",
+  "reference_action_count": 2,
+  "evidence_action_count": 3,
+  "completeness_claim": "unknown"
+}
