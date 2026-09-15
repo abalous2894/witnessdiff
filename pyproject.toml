@@ -1,0 +1,56 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "witnessdiff"
+version = "0.1.0"
+description = "Regression testing for what AI-agent execution exports leave out."
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.11"
+authors = [{ name = "Andrew Balous" }]
+keywords = ["ai-agents", "evaluation", "mcp", "evidence-integrity", "regression-testing"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = [
+  "pydantic>=2.6,<3",
+  "typer>=0.12,<1",
+  "rich>=13.7,<14",
+]
+
+[project.optional-dependencies]
+api = [
+  "fastapi>=0.115,<1",
+  "uvicorn[standard]>=0.30,<1",
+  "psycopg[binary]>=3.2,<4",
+]
+dev = [
+  "pytest>=8.3,<9",
+  "pytest-cov>=5.0,<6",
+  "ruff>=0.6,<1",
+  "witnessdiff[api]",
+]
+
+[project.scripts]
+witnessdiff = "witnessdiff.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/witnessdiff"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]

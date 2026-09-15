@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://witnessdiff.dev/schemas/evidence-bundle.v1.schema.json",
+  "title": "witnessdiff.evidence-bundle/v1",
+  "type": "object",
+  "required": ["schema", "session_id", "source", "completeness_claim", "actions"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "witnessdiff.evidence-bundle/v1" },
+    "session_id": { "type": "string", "minLength": 1 },
+    "source": { "type": "string", "minLength": 1 },
+    "exported_at": { "type": "string", "format": "date-time" },
+    "completeness_claim": {
+      "type": "string",
+      "enum": ["complete_path", "partial_path", "unknown"]
+    },
+    "declared_count": { "type": "integer", "minimum": 0 },
+    "actions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/action" }
+    }
+  },
+  "$defs": {
+    "action": {
+      "type": "object",
+      "required": ["index", "tool_name"],
+      "additionalProperties": false,
+      "properties": {
+        "index": { "type": "integer", "minimum": 0 },
+        "tool_name": { "type": "string", "minLength": 1 },
+        "action_id": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "arguments_digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    }
+  }
+}

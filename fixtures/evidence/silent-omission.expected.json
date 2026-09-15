@@ -1,0 +1,9 @@
+{
+  "schema": "witnessdiff.comparison-report/v1",
+  "session_id": "demo-refund-001",
+  "ok": false,
+  "verdict": "COMPLETENESS_OVERCLAIM",
+  "reference_action_count": 4,
+  "evidence_action_count": 3,
+  "completeness_claim": "complete_path"
+}

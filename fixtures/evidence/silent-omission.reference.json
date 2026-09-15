@@ -1,0 +1,36 @@
+{
+  "schema": "witnessdiff.reference-trace/v1",
+  "session_id": "demo-refund-001",
+  "source": "instrumented_mcp_runner",
+  "captured_at": "2026-03-24T18:00:00Z",
+  "actions": [
+    {
+      "index": 0,
+      "tool_name": "crm_lookup",
+      "action_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "arguments_digest": "1111111111111111111111111111111111111111111111111111111111111111",
+      "verdict": "ALLOW"
+    },
+    {
+      "index": 1,
+      "tool_name": "order_lookup",
+      "action_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "arguments_digest": "2222222222222222222222222222222222222222222222222222222222222222",
+      "verdict": "ALLOW"
+    },
+    {
+      "index": 2,
+      "tool_name": "policy_check",
+      "action_id": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "arguments_digest": "3333333333333333333333333333333333333333333333333333333333333333",
+      "verdict": "ALLOW"
+    },
+    {
+      "index": 3,
+      "tool_name": "refund_request",
+      "action_id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "arguments_digest": "4444444444444444444444444444444444444444444444444444444444444444",
+      "verdict": "ALLOW"
+    }
+  ]
+}

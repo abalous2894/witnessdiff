@@ -1,0 +1,9 @@
+{
+  "schema": "witnessdiff.comparison-report/v1",
+  "session_id": "demo-reorder-002",
+  "ok": false,
+  "verdict": "MISMATCH",
+  "reference_action_count": 3,
+  "evidence_action_count": 3,
+  "completeness_claim": "complete_path"
+}
