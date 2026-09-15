@@ -31,8 +31,15 @@
 | `suite` | Fixture discovery and regression runner |
 | `cli` | Typer commands for local use and CI |
 
+## API layer (week 4)
+
+```text
+POST /v1/compare ──► witnessdiff.api.service ──► PostgresRunStore / InMemoryRunStore
+GET  /v1/runs    ──► list persisted comparison reports
+```
+
+`DATABASE_URL` selects Postgres; otherwise the API uses an in-memory store.
+
 ## Planned additions
 
-- `graders.behavioral` — MCP tool policy scenarios (week 2)
-- `apps/api` — FastAPI persistence (week 4)
 - `apps/viewer` — Minimal replay UI (week 5)

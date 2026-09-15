@@ -195,5 +195,22 @@ def run_all_suites_cmd(
     raise typer.Exit(code=exit_code)
 
 
+@app.command("serve")
+def serve_cmd(
+    host: str = typer.Option("127.0.0.1", help="API bind host"),
+    port: int = typer.Option(8080, help="API bind port"),
+    reload: bool = typer.Option(False, help="Enable autoreload (dev only)"),
+) -> None:
+    """Start the WitnessDiff FastAPI server."""
+    import uvicorn
+
+    uvicorn.run(
+        "witnessdiff.api.main:app",
+        host=host,
+        port=port,
+        reload=reload,
+    )
+
+
 if __name__ == "__main__":
     app()

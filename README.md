@@ -27,6 +27,12 @@ witnessdiff run-behavioral-suite
 # Run both suites with baseline comparison
 witnessdiff run-all-suites
 
+# Start API (in-memory store without DATABASE_URL)
+witnessdiff serve
+
+# Postgres + API via Docker
+docker compose up --build
+
 # Run tests
 pytest
 ```
@@ -87,7 +93,7 @@ witnessdiff/
 - [x] Week 1: CLI, schemas, evidence comparators, first fixtures
 - [x] Week 2: Behavioral graders, baseline regression, CI gate
 - [x] Week 3: Full witness comparator matrix (10 evidence + 5 behavioral fixtures)
-- [ ] Week 4: FastAPI + Postgres + Docker Compose
+- [x] Week 4: FastAPI + Postgres + Docker Compose
 - [ ] Week 5: Minimal viewer + public demo deploy
 - [ ] Week 6: 25 scenarios, demo video, hardened docs
 
