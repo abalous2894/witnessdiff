@@ -1,0 +1,18 @@
+{
+  "schema": "witnessdiff.suite-baseline/v1",
+  "suite": "evidence",
+  "cases": {
+    "complete-path": {
+      "ok": true,
+      "verdict": "COMPLETE"
+    },
+    "reordered-tool-call": {
+      "ok": false,
+      "verdict": "MISMATCH"
+    },
+    "silent-omission": {
+      "ok": false,
+      "verdict": "COMPLETENESS_OVERCLAIM"
+    }
+  }
+}

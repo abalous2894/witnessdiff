@@ -1,0 +1,21 @@
+{
+  "schema": "witnessdiff.behavioral-scenario/v1",
+  "name": "valid-lookup-only",
+  "session_id": "behavior-lookup-005",
+  "description": "Read-only CRM and order lookup without sensitive writes",
+  "approval_granted": false,
+  "actions": [
+    {
+      "index": 0,
+      "tool_name": "crm_lookup",
+      "arguments": { "customer_id": "cust-500" },
+      "verdict": "ALLOW"
+    },
+    {
+      "index": 1,
+      "tool_name": "order_lookup",
+      "arguments": { "order_id": "ord-5005" },
+      "verdict": "ALLOW"
+    }
+  ]
+}

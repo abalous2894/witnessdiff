@@ -1,0 +1,26 @@
+{
+  "schema": "witnessdiff.suite-baseline/v1",
+  "suite": "behavioral",
+  "cases": {
+    "malformed-refund-args": {
+      "ok": false,
+      "verdict": "INVALID_TOOL_ARGS"
+    },
+    "prohibited-tool": {
+      "ok": false,
+      "verdict": "PROHIBITED_TOOL"
+    },
+    "refund-without-approval": {
+      "ok": false,
+      "verdict": "POLICY_VIOLATION"
+    },
+    "valid-lookup-only": {
+      "ok": true,
+      "verdict": "COMPLIANT"
+    },
+    "valid-refund-path": {
+      "ok": true,
+      "verdict": "COMPLIANT"
+    }
+  }
+}

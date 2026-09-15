@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 from witnessdiff.claim_parser import load_evidence_bundle
 from witnessdiff.comparators import compare_witness_integrity
@@ -37,7 +38,7 @@ def discover_evidence_fixtures(fixtures_dir: Path) -> list[EvidenceFixtureCase]:
     return cases
 
 
-def run_evidence_case(case: EvidenceFixtureCase) -> tuple[ComparisonReport, dict]:
+def run_evidence_case(case: EvidenceFixtureCase) -> tuple[ComparisonReport, dict[str, Any]]:
     reference = load_reference_trace(case.reference_path)
     evidence = load_evidence_bundle(case.evidence_path)
     report = compare_witness_integrity(reference, evidence)
@@ -45,7 +46,7 @@ def run_evidence_case(case: EvidenceFixtureCase) -> tuple[ComparisonReport, dict
     return report, expected
 
 
-def assert_case_matches(report: ComparisonReport, expected: dict) -> list[str]:
+def assert_case_matches(report: ComparisonReport, expected: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     for field in (
         "ok",
@@ -62,17 +63,27 @@ def assert_case_matches(report: ComparisonReport, expected: dict) -> list[str]:
     return errors
 
 
-def run_evidence_suite(fixtures_dir: Path) -> tuple[int, int, list[str]]:
+def run_evidence_suite(
+    fixtures_dir: Path,
+) -> tuple[int, int, list[str], dict[str, dict[str, Any]]]:
     passed = 0
     failed = 0
     messages: list[str] = []
+    case_results: dict[str, dict[str, Any]] = {}
     cases = discover_evidence_fixtures(fixtures_dir)
     if not cases:
-        return 0, 1, ["no evidence fixtures discovered"]
+        return 0, 1, ["no evidence fixtures discovered"], case_results
 
     for case in cases:
         report, expected = run_evidence_case(case)
         errors = assert_case_matches(report, expected)
+        case_results[case.name] = {
+            "ok": report.ok,
+            "verdict": report.verdict.value,
+            "session_id": report.session_id,
+            "reference_action_count": report.reference_action_count,
+            "evidence_action_count": report.evidence_action_count,
+        }
         if errors:
             failed += 1
             messages.append(f"FAIL {case.name}: " + "; ".join(errors))
@@ -80,4 +91,4 @@ def run_evidence_suite(fixtures_dir: Path) -> tuple[int, int, list[str]]:
             passed += 1
             messages.append(f"PASS {case.name}: {report.verdict.value}")
 
-    return passed, failed, messages
+    return passed, failed, messages, case_results

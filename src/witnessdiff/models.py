@@ -1,13 +1,16 @@
 from __future__ import annotations
 
 from enum import StrEnum
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 REFERENCE_TRACE_SCHEMA = "witnessdiff.reference-trace/v1"
 EVIDENCE_BUNDLE_SCHEMA = "witnessdiff.evidence-bundle/v1"
 COMPARISON_REPORT_SCHEMA = "witnessdiff.comparison-report/v1"
+BEHAVIORAL_SCENARIO_SCHEMA = "witnessdiff.behavioral-scenario/v1"
+BEHAVIORAL_REPORT_SCHEMA = "witnessdiff.behavioral-report/v1"
+SUITE_BASELINE_SCHEMA = "witnessdiff.suite-baseline/v1"
 
 
 class WitnessVerdict(StrEnum):
@@ -113,3 +116,92 @@ class ComparisonReport(BaseModel):
     completeness_claim: str
     findings: list[HopFinding] = Field(default_factory=list)
     note: str
+
+
+class BehavioralVerdict(StrEnum):
+    COMPLIANT = "COMPLIANT"
+    POLICY_VIOLATION = "POLICY_VIOLATION"
+    PROHIBITED_TOOL = "PROHIBITED_TOOL"
+    INVALID_TOOL_ARGS = "INVALID_TOOL_ARGS"
+
+
+class BehavioralAction(BaseModel):
+    index: int = Field(ge=0)
+    tool_name: str = Field(min_length=1)
+    arguments: dict[str, Any] = Field(default_factory=dict)
+    verdict: str | None = None
+
+
+class BehavioralScenario(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
+    schema_version: Literal["witnessdiff.behavioral-scenario/v1"] = Field(alias="schema")
+    name: str = Field(min_length=1)
+    session_id: str = Field(min_length=1)
+    description: str = Field(min_length=1)
+    approval_granted: bool = False
+    actions: list[BehavioralAction] = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def validate_contiguous_indices(self) -> BehavioralScenario:
+        indices = [action.index for action in self.actions]
+        expected = list(range(len(self.actions)))
+        if sorted(indices) != expected:
+            raise ValueError("behavioral action indices must be contiguous starting at 0")
+        return self
+
+
+class BehavioralFinding(BaseModel):
+    kind: Literal[
+        "prohibited_tool",
+        "approval_required",
+        "missing_argument",
+        "invalid_argument",
+        "denied_action",
+    ]
+    action_index: int = Field(ge=0)
+    tool_name: str
+    detail: str
+
+
+class BehavioralReport(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
+    schema_version: Literal["witnessdiff.behavioral-report/v1"] = Field(
+        default=BEHAVIORAL_REPORT_SCHEMA,
+        alias="schema",
+    )
+    session_id: str
+    scenario_name: str
+    ok: bool
+    verdict: BehavioralVerdict
+    action_count: int
+    approval_granted: bool
+    findings: list[BehavioralFinding] = Field(default_factory=list)
+    note: str
+
+
+class SuiteCaseBaseline(BaseModel):
+    ok: bool
+    verdict: str
+
+
+class SuiteBaseline(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
+    schema_version: Literal["witnessdiff.suite-baseline/v1"] = Field(alias="schema")
+    suite: Literal["behavioral", "evidence"]
+    cases: dict[str, SuiteCaseBaseline]
+
+
+class SuiteRunSummary(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
+    schema_version: Literal["witnessdiff.suite-run/v1"] = Field(
+        default="witnessdiff.suite-run/v1",
+        alias="schema",
+    )
+    suite: Literal["behavioral", "evidence"]
+    passed: int
+    failed: int
+    cases: dict[str, dict[str, Any]]

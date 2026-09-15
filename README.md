@@ -21,6 +21,12 @@ witnessdiff compare \
 # Run all evidence-integrity fixtures
 witnessdiff run-evidence-suite
 
+# Run behavioral policy fixtures
+witnessdiff run-behavioral-suite
+
+# Run both suites with baseline comparison
+witnessdiff run-all-suites
+
 # Run tests
 pytest
 ```
@@ -53,6 +59,15 @@ If the reference trace is wrong or incomplete, WitnessDiff cannot fix that. It t
 | `MISMATCH` | Tool identity, ordering, or binding fields diverge |
 | `COMPLETENESS_OVERCLAIM` | Bundle asserts a complete path but fails integrity checks |
 
+## Behavioral verdict labels
+
+| Verdict | Meaning |
+|---------|---------|
+| `COMPLIANT` | Tool choices and arguments satisfy deterministic policy |
+| `POLICY_VIOLATION` | Sensitive tool used without approval |
+| `PROHIBITED_TOOL` | Blocked tool invoked |
+| `INVALID_TOOL_ARGS` | Missing or empty required arguments |
+
 See [docs/methodology.md](docs/methodology.md) for grader design and oracle alignment notes.
 
 ## Repository layout
@@ -70,7 +85,7 @@ witnessdiff/
 ## Development roadmap
 
 - [x] Week 1: CLI, schemas, evidence comparators, first fixtures
-- [ ] Week 2: Behavioral graders, baseline regression, CI gate
+- [x] Week 2: Behavioral graders, baseline regression, CI gate
 - [ ] Week 3: Full witness comparator matrix
 - [ ] Week 4: FastAPI + Postgres + Docker Compose
 - [ ] Week 5: Minimal viewer + public demo deploy

@@ -26,3 +26,9 @@ jobs:
 
       - name: Evidence fixture suite
         run: witnessdiff run-evidence-suite
+
+      - name: Behavioral fixture suite
+        run: witnessdiff run-behavioral-suite
+
+      - name: All suites vs committed baselines
+        run: witnessdiff run-all-suites

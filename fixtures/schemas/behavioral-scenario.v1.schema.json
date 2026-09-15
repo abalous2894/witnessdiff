@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://witnessdiff.dev/schemas/behavioral-scenario.v1.schema.json",
+  "title": "witnessdiff.behavioral-scenario/v1",
+  "type": "object",
+  "required": ["schema", "name", "session_id", "description", "approval_granted", "actions"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "witnessdiff.behavioral-scenario/v1" },
+    "name": { "type": "string", "minLength": 1 },
+    "session_id": { "type": "string", "minLength": 1 },
+    "description": { "type": "string", "minLength": 1 },
+    "approval_granted": { "type": "boolean" },
+    "actions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/action" }
+    }
+  },
+  "$defs": {
+    "action": {
+      "type": "object",
+      "required": ["index", "tool_name", "arguments"],
+      "additionalProperties": false,
+      "properties": {
+        "index": { "type": "integer", "minimum": 0 },
+        "tool_name": { "type": "string", "minLength": 1 },
+        "arguments": { "type": "object" },
+        "verdict": { "type": "string" }
+      }
+    }
+  }
+}

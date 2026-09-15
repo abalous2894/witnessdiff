@@ -1,0 +1,6 @@
+{
+  "ok": false,
+  "verdict": "INVALID_TOOL_ARGS",
+  "scenario_name": "malformed-refund-args",
+  "session_id": "behavior-args-004"
+}
