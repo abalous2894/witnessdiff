@@ -1,0 +1,14 @@
+{
+  "schema": "witnessdiff.evidence-bundle/v1",
+  "session_id": "demo-truncated-014",
+  "source": "agent_platform_export",
+  "completeness_claim": "unknown",
+  "declared_count": 1,
+  "actions": [
+    {
+      "index": 0,
+      "tool_name": "crm_lookup",
+      "action_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  ]
+}

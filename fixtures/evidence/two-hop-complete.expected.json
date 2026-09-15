@@ -1,0 +1,8 @@
+{
+  "ok": true,
+  "verdict": "COMPLETE",
+  "session_id": "demo-two-hop-011",
+  "reference_action_count": 2,
+  "evidence_action_count": 2,
+  "completeness_claim": "complete_path"
+}

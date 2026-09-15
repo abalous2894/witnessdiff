@@ -1,10 +1,16 @@
 # WitnessDiff
 
+[![regression](https://github.com/abalous2894/witnessdiff/actions/workflows/regression.yml/badge.svg)](https://github.com/abalous2894/witnessdiff/actions/workflows/regression.yml)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-green.svg)](LICENSE)
+
 **Regression testing for what AI-agent execution exports leave out.**
 
 WitnessDiff compares an **instrumented reference trace** (what you trust was recorded during execution) with an **evidence bundle** (what an agent, platform, or exporter claims happened). It flags omissions, substitutions, reordering, and completeness overclaims **before** anyone treats a "clean export" as a complete session witness.
 
 This project is **independent** of [Aevesa](https://aevesa.com). It applies adjacent expertise in agent evidence and witness completeness using neutral schemas and synthetic fixtures only.
+
+> **Resume line:** Open-source Python/FastAPI evaluation system comparing instrumented MCP-agent traces with exported evidence bundles; deterministic behavioral + witness-integrity graders, React replay viewer, CI regression suite (25 scenarios). [github.com/abalous2894/witnessdiff](https://github.com/abalous2894/witnessdiff)
 
 ## Quick start
 
@@ -18,13 +24,13 @@ witnessdiff compare \
   fixtures/evidence/silent-omission.reference.json \
   fixtures/evidence/silent-omission.evidence.json
 
-# Run all evidence-integrity fixtures
+# Run all evidence-integrity fixtures (15 cases)
 witnessdiff run-evidence-suite
 
-# Run behavioral policy fixtures
+# Run behavioral policy fixtures (10 cases)
 witnessdiff run-behavioral-suite
 
-# Run both suites with baseline comparison
+# Run both suites with baseline comparison (25 total)
 witnessdiff run-all-suites
 
 # Start API (in-memory store without DATABASE_URL)
@@ -34,12 +40,30 @@ witnessdiff serve
 docker compose up --build
 # Viewer → http://localhost:5173 · API → http://localhost:8080
 
+# 90s demo script (API must be running)
+chmod +x scripts/demo.sh && ./scripts/demo.sh
+
 # Viewer dev (API must be running on :8080)
 cd apps/viewer && npm install && npm run dev
 
 # Run tests
 pytest
 ```
+
+## Demo
+
+The headline scenario is **silent omission**: four tool hops ran, the export presents three, and still claims `complete_path`.
+
+```bash
+witnessdiff compare \
+  fixtures/evidence/silent-omission.reference.json \
+  fixtures/evidence/silent-omission.evidence.json
+# → COMPLETENESS_OVERCLAIM
+
+curl -X POST http://localhost:8080/v1/demo/silent-omission   # when API is up
+```
+
+Full walkthrough: [docs/DEMO.md](docs/DEMO.md) · Results matrix: [docs/RESULTS.md](docs/RESULTS.md) · Deploy: [docs/DEPLOY.md](docs/DEPLOY.md)
 
 ## Two evaluation lanes
 
@@ -84,13 +108,17 @@ See [docs/methodology.md](docs/methodology.md) for grader design and oracle alig
 
 ```text
 witnessdiff/
-  src/witnessdiff/     Core parsers, comparators, graders, CLI
+  src/witnessdiff/     Core parsers, comparators, graders, CLI, API
   fixtures/            Versioned JSON scenarios (synthetic only)
   tests/               Pytest regression suite
-  apps/api/            FastAPI service (week 4+)
-  apps/viewer/         Minimal report viewer (week 5+)
-  docs/                Methodology, threat model, ADRs
+  apps/viewer/         React replay viewer
+  scripts/demo.sh      90-second demo script
+  docs/                Methodology, threat model, demo, deploy, results
 ```
+
+## GitHub topics (suggested)
+
+`ai-agents` · `mcp` · `evaluation` · `regression-testing` · `evidence-integrity` · `fastapi` · `python`
 
 ## Development roadmap
 
@@ -99,7 +127,7 @@ witnessdiff/
 - [x] Week 3: Full witness comparator matrix (10 evidence + 5 behavioral fixtures)
 - [x] Week 4: FastAPI + Postgres + Docker Compose
 - [x] Week 5: Minimal viewer + public demo deploy
-- [ ] Week 6: 25 scenarios, demo video, hardened docs
+- [x] Week 6: 25 scenarios, demo docs, hardened README (v1.0.0)
 
 ## License
 

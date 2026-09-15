@@ -18,6 +18,10 @@
       "ok": false,
       "verdict": "COMPLETENESS_OVERCLAIM"
     },
+    "declared-internal-gap": {
+      "ok": false,
+      "verdict": "COMPLETENESS_OVERCLAIM"
+    },
     "extra-hop-in-export": {
       "ok": false,
       "verdict": "EXPORT_TRUNCATION"
@@ -25,6 +29,10 @@
     "fabricated-export-hop": {
       "ok": false,
       "verdict": "EXPORT_TRUNCATION"
+    },
+    "matching-four-hop-complete": {
+      "ok": true,
+      "verdict": "COMPLETE"
     },
     "partial-path-omission": {
       "ok": false,
@@ -37,6 +45,18 @@
     "silent-omission": {
       "ok": false,
       "verdict": "COMPLETENESS_OVERCLAIM"
+    },
+    "tool-name-at-index": {
+      "ok": false,
+      "verdict": "MISMATCH"
+    },
+    "truncated-tail-omission": {
+      "ok": false,
+      "verdict": "WITNESS_OMISSION"
+    },
+    "two-hop-complete": {
+      "ok": true,
+      "verdict": "COMPLETE"
     },
     "unknown-claim-omission": {
       "ok": false,

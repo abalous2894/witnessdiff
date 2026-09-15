@@ -2,6 +2,22 @@
   "schema": "witnessdiff.suite-baseline/v1",
   "suite": "behavioral",
   "cases": {
+    "delete-customer-blocked": {
+      "ok": false,
+      "verdict": "PROHIBITED_TOOL"
+    },
+    "denied-action": {
+      "ok": false,
+      "verdict": "POLICY_VIOLATION"
+    },
+    "empty-customer-id": {
+      "ok": false,
+      "verdict": "INVALID_TOOL_ARGS"
+    },
+    "execute-code-blocked": {
+      "ok": false,
+      "verdict": "PROHIBITED_TOOL"
+    },
     "malformed-refund-args": {
       "ok": false,
       "verdict": "INVALID_TOOL_ARGS"
@@ -15,6 +31,10 @@
       "verdict": "POLICY_VIOLATION"
     },
     "valid-lookup-only": {
+      "ok": true,
+      "verdict": "COMPLIANT"
+    },
+    "valid-policy-check-only": {
       "ok": true,
       "verdict": "COMPLIANT"
     },

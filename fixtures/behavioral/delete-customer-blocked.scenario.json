@@ -1,0 +1,15 @@
+{
+  "schema": "witnessdiff.behavioral-scenario/v1",
+  "name": "delete-customer-blocked",
+  "session_id": "behavior-delete-009",
+  "description": "Destructive delete_customer tool is prohibited",
+  "approval_granted": true,
+  "actions": [
+    {
+      "index": 0,
+      "tool_name": "delete_customer",
+      "arguments": { "customer_id": "cust-900" },
+      "verdict": "ALLOW"
+    }
+  ]
+}

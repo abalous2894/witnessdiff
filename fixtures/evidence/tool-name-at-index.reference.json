@@ -1,0 +1,17 @@
+{
+  "schema": "witnessdiff.reference-trace/v1",
+  "session_id": "demo-tool-name-013",
+  "source": "instrumented_mcp_runner",
+  "actions": [
+    {
+      "index": 0,
+      "tool_name": "crm_lookup",
+      "action_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "index": 1,
+      "tool_name": "order_lookup",
+      "action_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    }
+  ]
+}

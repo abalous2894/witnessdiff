@@ -1,0 +1,15 @@
+{
+  "schema": "witnessdiff.behavioral-scenario/v1",
+  "name": "empty-customer-id",
+  "session_id": "behavior-empty-008",
+  "description": "CRM lookup with empty customer_id fails argument validation",
+  "approval_granted": false,
+  "actions": [
+    {
+      "index": 0,
+      "tool_name": "crm_lookup",
+      "arguments": { "customer_id": "" },
+      "verdict": "ALLOW"
+    }
+  ]
+}

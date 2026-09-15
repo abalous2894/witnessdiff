@@ -1,0 +1,29 @@
+{
+  "schema": "witnessdiff.evidence-bundle/v1",
+  "session_id": "demo-four-hop-012",
+  "source": "agent_platform_export",
+  "completeness_claim": "complete_path",
+  "declared_count": 4,
+  "actions": [
+    {
+      "index": 0,
+      "tool_name": "crm_lookup",
+      "action_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "index": 1,
+      "tool_name": "order_lookup",
+      "action_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    {
+      "index": 2,
+      "tool_name": "policy_check",
+      "action_id": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "index": 3,
+      "tool_name": "refund_request",
+      "action_id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    }
+  ]
+}

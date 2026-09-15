@@ -70,14 +70,14 @@ def test_run_evidence_suite(client: TestClient):
     body = response.json()
     assert body["suite"] == "evidence"
     assert body["failed"] == 0
-    assert body["passed"] == 10
+    assert body["passed"] == 15
 
 
 def test_run_behavioral_suite(client: TestClient):
     response = client.post("/v1/suites/behavioral/run")
     assert response.status_code == 200
     body = response.json()
-    assert body["passed"] == 5
+    assert body["passed"] == 10
 
 
 def test_demo_silent_omission(client: TestClient):

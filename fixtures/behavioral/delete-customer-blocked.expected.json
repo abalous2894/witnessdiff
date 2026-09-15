@@ -1,0 +1,6 @@
+{
+  "ok": false,
+  "verdict": "PROHIBITED_TOOL",
+  "scenario_name": "delete-customer-blocked",
+  "session_id": "behavior-delete-009"
+}

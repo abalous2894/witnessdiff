@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "witnessdiff"
-version = "0.5.0"
+version = "1.0.0"
 description = "Regression testing for what AI-agent execution exports leave out."
 readme = "README.md"
 license = "Apache-2.0"
@@ -12,7 +12,7 @@ requires-python = ">=3.11"
 authors = [{ name = "Andrew Balous" }]
 keywords = ["ai-agents", "evaluation", "mcp", "evidence-integrity", "regression-testing"]
 classifiers = [
-  "Development Status :: 3 - Alpha",
+  "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
   "License :: OSI Approved :: Apache Software License",
   "Programming Language :: Python :: 3.11",

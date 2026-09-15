@@ -1,0 +1,6 @@
+{
+  "ok": false,
+  "verdict": "POLICY_VIOLATION",
+  "scenario_name": "denied-action",
+  "session_id": "behavior-deny-006"
+}

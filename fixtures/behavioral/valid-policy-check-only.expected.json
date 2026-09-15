@@ -1,0 +1,6 @@
+{
+  "ok": true,
+  "verdict": "COMPLIANT",
+  "scenario_name": "valid-policy-check-only",
+  "session_id": "behavior-policy-010"
+}

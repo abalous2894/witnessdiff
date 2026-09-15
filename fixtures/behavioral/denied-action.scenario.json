@@ -1,0 +1,21 @@
+{
+  "schema": "witnessdiff.behavioral-scenario/v1",
+  "name": "denied-action",
+  "session_id": "behavior-deny-006",
+  "description": "Terminal hop recorded as DENY should fail policy grading",
+  "approval_granted": true,
+  "actions": [
+    {
+      "index": 0,
+      "tool_name": "crm_lookup",
+      "arguments": { "customer_id": "cust-600" },
+      "verdict": "ALLOW"
+    },
+    {
+      "index": 1,
+      "tool_name": "refund_request",
+      "arguments": { "order_id": "ord-6006", "amount_cents": 1200 },
+      "verdict": "DENY"
+    }
+  ]
+}

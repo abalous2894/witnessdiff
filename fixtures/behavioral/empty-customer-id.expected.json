@@ -1,0 +1,6 @@
+{
+  "ok": false,
+  "verdict": "INVALID_TOOL_ARGS",
+  "scenario_name": "empty-customer-id",
+  "session_id": "behavior-empty-008"
+}
