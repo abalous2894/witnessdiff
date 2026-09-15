@@ -103,7 +103,11 @@ def compare_witness_integrity(
                     ),
                 )
             )
-        if ref_action.action_id and ev_action.action_id and ref_action.action_id != ev_action.action_id:
+        if (
+            ref_action.action_id
+            and ev_action.action_id
+            and ref_action.action_id != ev_action.action_id
+        ):
             findings.append(
                 HopFinding(
                     kind="action_id_mismatch",

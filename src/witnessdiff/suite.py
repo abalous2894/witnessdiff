@@ -6,7 +6,7 @@ from pathlib import Path
 
 from witnessdiff.claim_parser import load_evidence_bundle
 from witnessdiff.comparators import compare_witness_integrity
-from witnessdiff.models import ComparisonReport, WitnessVerdict
+from witnessdiff.models import ComparisonReport
 from witnessdiff.trace_parser import load_reference_trace
 
 
