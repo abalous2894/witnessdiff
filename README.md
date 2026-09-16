@@ -40,7 +40,7 @@ witnessdiff serve
 
 # Postgres + API + viewer via Docker
 docker compose up --build
-# Viewer → http://localhost:5173 · API → http://localhost:8080
+# Viewer → http://localhost:5173 · API → http://localhost:8081 (8080 if WITNESSDIFF_HOST_API_PORT=8080)
 
 # 90s demo script (API must be running)
 chmod +x scripts/demo.sh && ./scripts/demo.sh

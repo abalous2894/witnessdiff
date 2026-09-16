@@ -20,8 +20,8 @@ docker compose up --build
 
 | Service | Port | Notes |
 |---------|------|-------|
-| `api` | 8080 | FastAPI + Postgres |
-| `db` | 5433 | Postgres 16 |
+| `api` | 8081 (override: `WITNESSDIFF_HOST_API_PORT`) | FastAPI + Postgres |
+| `db` | internal only | Postgres 16 (no host bind; avoids port clashes) |
 | `viewer` | 5173 | nginx serving built React app |
 
 Fixtures are mounted read-only; suite endpoints use `WITNESSDIFF_FIXTURES_ROOT`.
