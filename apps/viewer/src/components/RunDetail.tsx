@@ -1,4 +1,5 @@
 import type { ComparisonRunDetail } from "../types";
+import { formatVerdict } from "../verdictLabel";
 import TraceHopList from "./TraceHopList";
 
 interface Props {
@@ -11,12 +12,14 @@ export default function RunDetail({ run }: Props) {
   return (
     <div>
       <div className="panel">
-        <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
-          <div>
+        <div className="run-header">
+          <div className="run-header-title">
             <h2>{run.session_id}</h2>
             <p className="meta">Run {run.id}</p>
           </div>
-          <span className={`badge ${run.ok ? "ok" : "fail"}`}>{run.verdict}</span>
+          <span className={`badge verdict ${run.ok ? "ok" : "fail"}`} title={run.verdict}>
+            {formatVerdict(run.verdict)}
+          </span>
         </div>
         <div className="stats">
           <div className="stat">

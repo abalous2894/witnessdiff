@@ -98,22 +98,47 @@ button:disabled {
   border-color: #3b82f6;
 }
 
+.run-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.run-header-title {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
 .badge {
   display: inline-block;
-  border-radius: 999px;
-  padding: 0.15rem 0.55rem;
-  font-size: 0.78rem;
+  border-radius: 6px;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.72rem;
   font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 1.25;
+}
+
+.badge.verdict {
+  flex: 0 0 auto;
+  max-width: 10.5rem;
+  text-align: center;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .badge.ok {
   background: #12341f;
   color: #7dffb2;
+  border: 1px solid #1f5a36;
 }
 
 .badge.fail {
   background: #3a1717;
   color: #ff8d8d;
+  border: 1px solid #6b2a2a;
 }
 
 .hop-list {

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { fetchHealth, fetchRun, fetchRuns, seedSilentOmissionDemo } from "./api";
 import RunDetail from "./components/RunDetail";
 import type { ComparisonRunDetail, ComparisonRunSummary, HealthResponse } from "./types";
+import { formatVerdict } from "./verdictLabel";
 
 export default function App() {
   const [health, setHealth] = useState<HealthResponse | null>(null);
@@ -102,7 +103,9 @@ export default function App() {
                 >
                   <div style={{ display: "flex", justifyContent: "space-between", gap: "0.75rem" }}>
                     <strong>{run.session_id}</strong>
-                    <span className={`badge ${run.ok ? "ok" : "fail"}`}>{run.verdict}</span>
+                    <span className={`badge verdict ${run.ok ? "ok" : "fail"}`} title={run.verdict}>
+                      {formatVerdict(run.verdict)}
+                    </span>
                   </div>
                   <div className="meta">
                     {run.reference_action_count} ref / {run.evidence_action_count} evidence ·{" "}
