@@ -12,6 +12,8 @@ WitnessDiff compares an **instrumented reference trace** (what you trust was rec
 
 This project is **independent** of [Aevesa](https://aevesa.com). It applies adjacent expertise in agent evidence and witness completeness using neutral schemas and synthetic fixtures only.
 
+**Conformance profile:** [Agent Witness Conformance (AWC) v0.1](https://github.com/abalous2894/agent-witness-conformance) publishes a portable fixture suite and `awc run-profile awc-v0.1` CLI. AWC normatively reuses `witnessdiff.reference-trace/v1` and `witnessdiff.evidence-bundle/v1`; the reference comparator is `witnessdiff.compare_witness_integrity` (plus AWC preflight rules). Use AWC when you need a third-party “run these 15 oracles” review; use WitnessDiff for day-to-day regression, API, viewer, and behavioral lanes.
+
 > **Resume line:** Open-source Python/FastAPI evaluation system comparing instrumented MCP-agent traces with exported evidence bundles; deterministic behavioral + witness-integrity graders, React replay viewer, CI regression suite (25 scenarios). [github.com/abalous2894/witnessdiff](https://github.com/abalous2894/witnessdiff)
 
 ## Quick start
